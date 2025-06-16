@@ -1,0 +1,129 @@
+setiap kali mau install npm, itu harus di folder NODE_JS_2025 yaa
+
+ini adalah data pembelajaran dari slide slidenya
+
+https://docs.google.com/presentation/d/1id-hTsg5_StMTk_6nPD6m1Nxid_eGiPwD1otUfZM1LE/edit?slide=id.g107aeadb6f8_0_219#slide=id.g107aeadb6f8_0_219
+
+
+penjelasan singkat lagi
+tadi anda bilang kalo misalkan kita mengirimkan task dalam bentuk non blocking, maka akan langsung dikerjakan oleh si eventloopnya, tapi jika blocking maka akan dikerjakan di threadpoolnya, nah jika ada tugas membacafile(ini harusnya di threadpool karena bloking), tpai ternyata di node js ada cara untuk non bloking, nah jika terjadi seperti ini maka nanti tugas ini akan dikirimkan ke threadpoolnya atau langsung dikerjakan di eventloopnya ?
+
+Jawaban Singkat:
+
+Jika Anda membaca file dengan cara non-blocking (misal pakai fs.readFile dengan callback/promise), operasi tersebut tetap dikirim ke Thread Pool, bukan dikerjakan langsung oleh Event Loop.
+Tapi jika pakai cara benar-benar non-blocking (misal fs.readFileSync + Worker Threads), barulah bisa menghindari Thread Pool.
+
+
+
+
+nanti cari aja node js architecture, dll
+
+
+ini alurnya
+jdi gini di node js, ketika client ngasil task misla reuest, maka nanti akan masuk ke queque, lalu akan masuk ke event loopnya, lalu masuk ke threadpoolnya lalu nanti threadpool c++ ini akan bisa menggakses resourse dari luar, lalu dari threadpool ini akan memberi callbacknya ke evnet loop lalu baru akan di kerjakan di event loopnya, apkaha akurnya seprti ini atau salah, tolong berikan saya penjelasan yang amat jelas dna berikan juga contohnya
+
+Anda hampir benar, tetapi ada beberapa detail yang perlu diluruskan. Mari saya jelaskan alur sebenarnya dengan jelas, disertai contoh konkret.
+Alur yang Benar di Node.js (Versi Diperbaiki)
+
+    Client Request Masuk
+    Contoh: HTTP request ke endpoint /read-file.
+
+    Masuk ke Event Loop
+
+        Request diterima oleh Event Loop (fase poll).
+
+        Jika operasi non-blocking (seperti network I/O), Event Loop menanganinya langsung.
+
+        Jika operasi blocking (seperti fs.readFile), diteruskan ke Thread Pool.
+
+    Thread Pool (libuv) Menangani Task
+
+        Operasi blocking (misal baca file) dikerjakan oleh salah satu thread dari pool (default: 4 thread).
+
+        Thread Pool mengakses resource eksternal (file system, DNS, dll).
+
+        Thread Pool tidak memberi callback langsung ke Event Loop!
+
+    Callback Dimasukkan ke Queue
+
+        Setelah selesai, callback dari Thread Pool ditaruh di Callback Queue (misal: fs.readFile selesai → callback masuk queue).
+
+    Event Loop Mengambil Callback dari Queue
+
+        Event Loop (fase check) mengambil callback dari queue dan mengeksekusinya di main thread.
+
+Contoh Nyata dengan Kode
+javascript
+
+const http = require('http');
+const fs = require('fs');
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/read-file') {
+    // 1. Request masuk ke Event Loop (fase poll)
+    console.log('Request diterima di Event Loop');
+
+    // 2. Operasi blocking (fs.readFile) dikirim ke Thread Pool
+    fs.readFile('bigfile.txt', (err, data) => {
+      // 4. Callback ini dieksekusi oleh Event Loop (setelah selesai di Thread Pool)
+      console.log('Callback dieksekusi oleh Event Loop');
+      res.end(data);
+    });
+  }
+});
+
+server.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+
+Visualisasi Alur
+
+[ Client Request ]
+        ↓
+[ Event Loop (Poll Phase) ] → Jika blocking → [ Thread Pool (4 Threads) ]
+        ↑                                         ↓
+[ Callback Queue ] ← ← ← ← [ Thread Selesai & Taruh Callback di Queue ]
+
+Koreksi Pernyataan Anda
+
+    Yang Benar:
+    Thread Pool tidak mengembalikan callback langsung ke Event Loop, tetapi ke Callback Queue terlebih dahulu.
+    Event Loop kemudian mengambil callback dari queue.
+
+    Yang Salah:
+    "Thread Pool memberi callback ke Event Loop" → Tidak langsung! Harus lewat queue dulu.
+
+Perbedaan Operasi Blocking vs Non-Blocking
+Operasi	Ditangani Oleh	Contoh
+Non-Blocking	Event Loop langsung	http.request, setTimeout
+Blocking	Thread Pool (libuv)	fs.readFile, crypto.pbkdf2
+Contoh Debugging
+
+Untuk melihat thread pool bekerja:
+javascript
+
+const crypto = require('crypto');
+
+// Jalankan 6 tugas crypto (melebihi default 4 thread)
+for (let i = 0; i < 6; i++) {
+  crypto.pbkdf2('password', 'salt', 100000, 64, 'sha512', () => {
+    console.log(`Task ${i + 1} selesai`);
+  });
+}
+
+Output:
+
+Task 1 selesai
+Task 2 selesai
+Task 3 selesai
+Task 4 selesai
+Task 5 selesai  // Task 5 dan 6 antri karena thread pool penuh!
+Task 6 selesai
+
+Kesimpulan
+
+    Event Loop adalah single-threaded, tetapi Thread Pool (libuv) multi-threaded.
+
+    Callback tidak langsung kembali ke Event Loop, tetapi lewat queue.
+
+    Gunakan UV_THREADPOOL_SIZE jika butuh lebih dari 4 thread.

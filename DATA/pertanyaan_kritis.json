@@ -1,0 +1,14 @@
+[
+  {
+    "pertanyaan_1": "cara kerja dari node js itu kan seperti ini, jadi misal user ngasih request, maka nanti akan masuk ke program node jsnya yaitu pertama kana masuk ke event loop, nah jika prosesnya secara asingkronus maka akan langusng dikerjakan oleh si event loopnya ini tapi jika singkron, maka akan tugasnya akan masuk ke threadpoolnya, misal yang requestnyaitu adlah baca file, maka ini akan masuk ke tread pool lalu thread poolnya ini akan ngambil resource dari c++ untuk mengerjakannya, lalu akan di kasih callbacknya ke queque, baru diambil lagi di event loopnya alu di kerjakan, nah pertanyaanya jika requestnya itu adalah bacafile, yang singkron, maka yang di kasih dari threadpool ke que que itu apanya, kan biassnya kalo threadpool ngasih task ke queque itu biasanya adalah si callbacknya?, tolong jawab dengan sangat jelas dan runtut beserta contoh dan visualisasinya yang mudah utuk dipahami",
+    "jawaban_1": "jadi kalo singkron itu bakal langusng di eksekusi di thread utamanya, dan tidak akan masuk ke threadpool dari c++, nah kalo asingkronus maka nanti yang di kasih ke queque itu si callbacknya"
+  },
+  {
+    "pertanyaan_2": "const buffer = fs.readFileSync('file saya') // kalo gapake utf-8 / encoding\nconsole.log(buffer)// berupa buffer, dan tidak dipahami oleh kamu\nconst data = fs.readFileSync('./TES-File-System/1.data-contoh-1.txt', 'utf-8')\nconsole.log(data) , didalam kode saya ini, saya kan nyurh prgram untuk baca isi file dan ditampilka ke terminal, nah saya menggunakan utf-8, nah disini ada yang membingungkan, tadi kan utf-8 itu untuk merubah kalimat manusia ke bahasa komputer, maka berati tulisan saya yang berada di file tersebut akan diubah dulu ke bahsa komputer, nah kenapa jika saya tidak mneggunakan paramter utf-8, , data yang tampil itu adalah buffer encoding?, tapi kalo saya kasih paramter utf-8, data yang diitampilkan itu adalah text yang dapat dibaca manusia",
+    "jawaban_2":"itu bukan karena UTF-8 mengubah teks manusia ke bahasa mesin, tapi karena Node.js mengembalikan data dalam bentuk yang berbeda tergantung kamu minta apa."
+  },
+  {
+    "pertanyaan_basic":"tolong berikan saya materi yang sangat lengkap dan jelas tentang stream di node js, apa fungsinya, kenapa harus menggunakan itu, apa manfaatnya, bagaimaa cara kerjanya, bagaimana cara kerja dibalik layarnya, bagaimana implementasinya ada program, dll tolong jelaskan dengan amat lengkap dan jelas serta runtut dengan conto yang mudah dipahami"
+  }
+  
+]

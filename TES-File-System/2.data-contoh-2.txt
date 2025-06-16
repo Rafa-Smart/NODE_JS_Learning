@@ -1,0 +1,11 @@
+Bagaimana Data Mengalir dari Satu Stream ke Stream Lainnya?
+Pikirkan pipeline sebagai rantai aliran data. Misalnya:
+
+Stream A (Readable): Membaca data dari file.
+
+Stream B (Transform): Mengompresi data.
+
+Stream C (Writable): Menyimpan data ke file lain.
+
+Ketika kita menggunakan pipe(), data dari Stream A langsung ditransfer ke Stream B, kemudian langsung ke Stream C.
+Data tidak ditampung penuh di RAM, tetapi dialirkan langsung dari satu stream ke stream lain.
