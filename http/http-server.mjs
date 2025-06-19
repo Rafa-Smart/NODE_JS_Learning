@@ -17,7 +17,7 @@ const server = http.createServer((request, response) => {
 
     request.addListener("data", function () { // ini tuh kemarin "end" / sama aka sih
       response.setHeader("content-Type", "application/json");
-      response.write(`data kamu : ${body}`);
+      response.write(`data kamu : ${body}`);  // ini yang nanti di kirim ke postmnnya atau ke yang merequestnya
       console.log(body);
       response.end();
       

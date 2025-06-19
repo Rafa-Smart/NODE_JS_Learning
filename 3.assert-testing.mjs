@@ -110,7 +110,7 @@ async function loginUser(username, password) {
   // disini sebenernya kita ga perlu pake async, karena file .mjs ini sudah ada asyncnya, jadi bisa langusng saja await
   await assert.rejects(
     // disini kita await datanya
-    async () => await loginUser("rafa", "ini sengaja salah"),
+    async () => await loginUser("rafa", "ini sengaja salah"), // disini kenapa kita bungkus dulu pake fungsi , karena agar terjadi pelemparan errir, mka tidak akan langusng di cetak kelayar, tapi kita tangkep duu didalam sebuah fugsi, lalu fungsi ini akan mereturn kan si throw errornya
     {
         // jdi objek yng direturn oleh si fungsi promise di parameter pertaman ini akna di kompare dengan objek yang   ad di sini, dan kalo sama maka berati test nya berhasil, dan berati ada kesalahan di dalam passwordnya, tapi kalo yang di komparenya return yang return { username, token: "abc123" }, artinya berhasil, maka akan menambpikan pesan error "Test gagal: Error 'Password salah' tidak dilempar"
       name: "Error", // dari err.name

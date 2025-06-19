@@ -44,4 +44,6 @@ output.addListener("finish", function () { // jadi ini kalo misalkan si outputny
   output2.on("finish", () => {
     console.log("✅ Dekompresi selesai!");
   });
+
+  
 });

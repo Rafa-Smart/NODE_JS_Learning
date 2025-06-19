@@ -12,7 +12,9 @@ const rl = readline.createInterface({
     output:process.stdout
 })
 
-rl.addListener("line", function(data){
+rl.addListener("line", function(data){ // jadi line ini adalh salah satu event dari si rl, 
+    // jadi ketika dapet event atau emit line (yang maksudnya adalah baris atau ketika di enter)
+    // maka akan mendapatkan datanya
     if(data === "keluar"){
         rl.close()
         // client.emit("end")

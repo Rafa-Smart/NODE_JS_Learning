@@ -65,7 +65,7 @@ let total = 0;
 
 // console.log('Ketik angka (atau "selesai" untuk berhenti): ');
 
-// rl.on('line', (input) => {
+// rl.on('line', (input) => { // jadi ketika rl, mendapatkan event line atau ketika di enter maka, akan dapaet data input
 //   if (input.toLowerCase() === 'selesai') {
 //     console.log(`Total: ${total}`);
 //     rl.close();

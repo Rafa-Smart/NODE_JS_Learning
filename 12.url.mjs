@@ -7,10 +7,10 @@ const dataUrl = new URL('https://www.programmerzamannow.com/belajar?kelas=nodejs
 const bytes = new Uint8Array([72, 101, 108, 108, 111]);
 
 // Mengonversi byte array menjadi string
-const text = new TextDecoder().decode(bytes);
+const text = new TextDecoder();
 // jadi text decode adalah untuk mengubah byte ke strig dan defaultnya itu utf-8, bisa juga yang lain nanit
 // ditaro di new TextDecoder("utf-16")
-console.log(text);  // Output: Hello
+console.log(text.decode(bytes));  // Output: Hello
 
 console.log("===============")
 

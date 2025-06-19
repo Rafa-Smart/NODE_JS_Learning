@@ -7,6 +7,7 @@ const request = https.request(url,{
         "content-type":"application/json",
         "Accept": "application/json",
     }
+    // dibawah sini kalo mau buat body juga boleh, dan nanti di convert dulu ke JSON.stringfy
 }, (response) => {
     response.addListener("data", function(data) {
         console.log(`data yang diterima : ${data}`)
@@ -32,3 +33,8 @@ request.end();
 
 // jadi bedanya dengan net yang pernah dibuat sebelumnya itu,
 // kalo client and server ini lewat http, tapi kalo si net pakenya port buat nyambunginnya
+
+
+// nah jadi si http clinet ini mirip cara kerjanya seperti di postman
+// jadi kita kirim request ke url atau ke server, maka nanti akan di kasih response dari si servernya, dan kita tangkep menggunakan
+// callback reponse
