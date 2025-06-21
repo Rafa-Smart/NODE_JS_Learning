@@ -173,6 +173,10 @@ async function hitungMean(jumlah){
   for(let i = 0; i < jumlah; i++){
     let p = await ngambildata(`masukan data ke ${i+1} -> `)
     data.push(Number(p))
+
+    // yg ini ga bisa
+
+    // data.push(await Number(ngambildata(`masukan data ke ${i+1} -> `)))
   }
   return data
 }

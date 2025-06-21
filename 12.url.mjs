@@ -11,7 +11,6 @@ const text = new TextDecoder();
 // jadi text decode adalah untuk mengubah byte ke strig dan defaultnya itu utf-8, bisa juga yang lain nanit
 // ditaro di new TextDecoder("utf-16")
 console.log(text.decode(bytes));  // Output: Hello
-
 console.log("===============")
 
 // disini kita ubah
