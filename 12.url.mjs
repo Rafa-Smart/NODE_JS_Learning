@@ -10,6 +10,7 @@ const bytes = new Uint8Array([72, 101, 108, 108, 111]);
 const text = new TextDecoder();
 // jadi text decode adalah untuk mengubah byte ke strig dan defaultnya itu utf-8, bisa juga yang lain nanit
 // ditaro di new TextDecoder("utf-16")
+// jadi kalo text decoderny mau buat ngedecode base64, maka nanti di parameternya pake aja'base64, karena defaultnya utf-8
 console.log(text.decode(bytes));  // Output: Hello
 console.log("===============")
 

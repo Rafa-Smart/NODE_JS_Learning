@@ -42,11 +42,16 @@ import fs from "fs";
 import { stderr, stdout } from "process";
 
 const File = fs.createWriteStream("tesLog.txt");
-const logFile = new Console({
+const logFIle = new Console({
+    stdout:File, //  biasanya stdout:output
+    stderr:File // biasanya stderr errorOutput
+})
+const console = new Console({
     stdout:File, //  biasanya stdout:output
     stderr:File // biasanya stderr errorOutput
 })
 
-logFile.log("halo semuanyaaaa, lorem lorem lorem lorem lorem lorem lorem lorem")
+logFIle.log("halo semuanyaaaa, lorem lorem lorem lorem lorem lorem lorem lorem")
+console.log("halo semuanyaaaa, lorem lorem lorem lorem lorem lorem lorem lorem")
 
 // jadi bisa juga untuk nanti network clientnnya
