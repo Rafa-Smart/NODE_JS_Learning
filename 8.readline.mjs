@@ -193,3 +193,15 @@ async function hitungMean(jumlah){
     rl.close()
   }
 })()
+
+
+
+
+
+function tes_doang(tanya){
+  return new Promise(resolve => {
+    rl.question(tanya, (data_jwb) => {
+      resolve(data_jwb)
+    })
+  })
+}
