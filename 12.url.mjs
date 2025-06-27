@@ -13,7 +13,7 @@ const text = new TextDecoder();
 // jadi kalo text decoderny mau buat ngedecode base64, maka nanti di parameternya pake aja'base64, karena defaultnya utf-8
 console.log(text.decode(bytes));  // Output: Hello
 console.log("===============")
-
+console.log("teting saja....")
 // disini kita ubah
 
 console.log(dataUrl.host)
