@@ -159,49 +159,60 @@ let total = 0;
 //   }
 // })()
 
-function ngambildata(pertanyaan){
-  return new Promise(resolve => {
-    rl.question(pertanyaan, hasil => {
-      resolve(hasil)
-    })
-  })
-}
+// function ngambildata(pertanyaan){
+//   return new Promise(resolve => {
+//     rl.question(pertanyaan, hasil => {
+//       resolve(hasil)
+//     })
+//   })
+// }
 
 
-async function hitungMean(jumlah){
-  let data = [];
-  for(let i = 0; i < jumlah; i++){
-    let p = await ngambildata(`masukan data ke ${i+1} -> `)
-    data.push(Number(p))
+// async function hitungMean(jumlah){
+//   let data = [];
+//   for(let i = 0; i < jumlah; i++){
+//     let p = await ngambildata(`masukan data ke ${i+1} -> `)
+//     data.push(Number(p))
 
-    // yg ini ga bisa
+//     // yg ini ga bisa
 
-    // data.push(await Number(ngambildata(`masukan data ke ${i+1} -> `)))
-  }
-  return data
-}
-
-
-(async() => {
-  try{
-    let jumlah = await ngambildata("masukan data jumlah = ");
-    let hasil = await hitungMean(jumlah);
-    let hasil2 = hasil.reduce((acc, x) => acc + x, 0)
-    console.log(`hasilnya dari rata rata dari pembelian anda adalah = ${hasil2/jumlah}`)
-  }finally{
-    console.log("program selesai...")
-    rl.close()
-  }
-})()
+//     // data.push(await Number(ngambildata(`masukan data ke ${i+1} -> `)))
+//   }
+//   return data
+// }
 
 
+// (async() => {
+//   try{
+//     let jumlah = await ngambildata("masukan data jumlah = ");
+//     let hasil = await hitungMean(jumlah);
+//     let hasil2 = hasil.reduce((acc, x) => acc + x, 0)
+//     console.log(`hasilnya dari rata rata dari pembelian anda adalah = ${hasil2/jumlah}`)
+//   }finally{
+//     console.log("program selesai...")
+//     rl.close()
+//   }
+// })()
 
 
 
-function tes_doang(tanya){
-  return new Promise(resolve => {
-    rl.question(tanya, (data_jwb) => {
-      resolve(data_jwb)
-    })
-  })
-}
+
+
+// function tes_doang(tanya){
+//   return new Promise(resolve => {
+//     rl.question(tanya, (data_jwb) => {
+//       resolve(data_jwb)
+//     })
+//   })
+// }
+
+
+
+
+
+
+
+
+
+
+
