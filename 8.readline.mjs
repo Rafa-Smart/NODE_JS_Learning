@@ -1,3 +1,4 @@
+import { stdin } from "process";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -208,10 +209,42 @@ let total = 0;
 
 
 
+const rl2 = readline.createInterface({
+  input:process.stdin,
+  output:process.stdout
+})
 
 
+function ambilData2(tanya){
+  return new Promise(resolve => {
+    rl2.question(tanya, (data) => {
+      resolve(data)
+    })
+  })
+}
 
 
+async function hitung2(jml){
+  let data = [];
+  for(let i = 0; i < jml; i++){
+    let tt = await ambilData2(`masukan data ke -${i+1}: `)
+    data.push(Number(tt))
+  }
+  return data;
+}
+
+
+try {
+  const jml = await ambilData2("masukan jumlah data : ")
+  const data  = await hitung2(jml)
+  console.log(`data rata rata : ${data.reduce((acc, e) => {
+    return acc + e
+    },0) / data.length}`)
+} catch(err) {
+  console.log(err)
+} finally { y
+  rl2.close()
+}
 
 
 
