@@ -6,3 +6,4 @@ const messyPath = '/var/log/../app/./error.log';
 const cleanPath = Path.normalize(messyPath);
 console.log(cleanPath); // Output: /var/app/error.log
 
+// test
