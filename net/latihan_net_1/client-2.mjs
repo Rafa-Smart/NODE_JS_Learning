@@ -13,3 +13,4 @@ setInterval(() => { // disini kita ingin mengirim data ke server secara berkala
     client.write(`${process.argv[2]}\r\n`)
 }, 2000)
 
+// test
